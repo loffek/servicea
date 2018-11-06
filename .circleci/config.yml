@@ -18,7 +18,11 @@ jobs:
           command: |
             docker run loffek/servicea ./test.sh
 
-      - run:
-          name: Push to DockerHub
+      - deploy:
+          name: Publish to DockerHub
           command: |
-            docker push loffek/servicea
+            echo $DOCKER_HUB_PWD | docker login -u $DOCKER_HUB_USER_ID --password-stdin
+            docker tag loffek/servicea $DOCKER_HUB_USER_ID/dockerapp:$CIRCLE_SHA1
+            docker tag loffek/servicea $DOCKER_HUB_USER_ID/dockerapp:latest
+            docker push $DOCKER_HUB_USER_ID/dockerapp:$CIRCLE_SHA1
+            docker push $DOCKER_HUB_USER_ID/dockerapp:latest
