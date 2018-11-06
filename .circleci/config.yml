@@ -17,3 +17,8 @@ jobs:
           name: Test
           command: |
             docker run loffek/servicea ./test.sh
+
+      - run:
+          name: Push to DockerHub
+          command: |
+            docker push loffek/servicea
