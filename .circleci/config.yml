@@ -1,0 +1,19 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: docker:1.13.1
+    working_directory: ~/app
+    steps:
+      - checkout
+      - setup_remote_docker
+
+      - run:
+          name: Build image
+          command: |
+            docker build --rm=false -t loffek/servicea .
+
+      - run:
+          name: Test
+          command: |
+            docker run loffek/servicea ./test.sh

@@ -1,2 +1,3 @@
 # servicea
-test service a
+
+simple echo server
